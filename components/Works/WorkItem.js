@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Card from "../ui/Card";
+import Card from "../UI/Card";
 import classes from "./WorkItem.module.sass";
 
 function WorkItem(props) {

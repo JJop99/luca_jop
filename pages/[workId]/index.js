@@ -14,7 +14,8 @@ function WorkDetails(props) {
         />
       </Head>
       <WorkDetail
-        image={props.workData.image}
+        id={props.workData.id}
+        images={props.workData.images}
         title={props.workData.title}
         shortDescription={props.workData.shortDescription}
         description={props.workData.description}
@@ -62,7 +63,7 @@ export async function getStaticProps(context) {
       workData: {
         id: selectedWork._id.toString(),
         title: selectedWork.title,
-        image: selectedWork.image,
+        images: JSON.parse(JSON.stringify(selectedWork.images)),
         shortDescription: selectedWork.shortDescription,
         description: selectedWork.description,
       },

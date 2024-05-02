@@ -10,8 +10,11 @@ import "swiper/css/navigation";
 
 // import required modules
 import { EffectFade, Autoplay, Navigation } from "swiper";
+import Image from "next/image";
 
-export default function Carousel() {
+
+export default function Carousel(props) {
+    
   return (
     <>
       <Swiper
@@ -27,27 +30,17 @@ export default function Carousel() {
         navigation={true}
         modules={[EffectFade, Autoplay, Navigation]}
       >
-        <SwiperSlide>
-          <img
-            className="object-fill w-full "
-            src="https://cdn.pixabay.com/photo/2022/03/20/15/40/nature-7081138__340.jpg"
-            alt="image slide 1"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="object-fill w-full h-96"
-            src="https://cdn.pixabay.com/photo/2022/07/24/17/55/wind-energy-7342177__340.jpg"
-            alt="image slide 2"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="object-fill w-full h-96"
-            src="https://cdn.pixabay.com/photo/2022/07/26/03/35/jogger-7344979__340.jpg"
-            alt="image slide 3"
-          />
-        </SwiperSlide>
+        {props.images.map(
+          (image) => (
+            (
+              <SwiperSlide key={image.key}>
+                <div className="object-fill w-full ">
+                  <img layout="fill" key={image.key} src={image.image} />
+                </div>
+              </SwiperSlide>
+            )
+          )
+        )}
       </Swiper>
     </>
   );

@@ -36,7 +36,7 @@ export async function getStaticProps() {
     props: {
       works: works.map((work) => ({
         title: work.title,
-        image: work.image,
+        images: JSON.parse(JSON.stringify(work.images)),
         shortDescription:work.shortDescription,
         id: work._id.toString(),
       })),
