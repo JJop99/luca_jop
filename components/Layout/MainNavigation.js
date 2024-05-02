@@ -11,10 +11,6 @@ const solutions = [
     href: "/works",
   },
   {
-    name: "In Progress",
-    href: "/in-progress",
-  },
-  {
     name: "About",
     href: "/about",
   },
