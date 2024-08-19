@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 import Card from "../UI/Card";
 import classes from "./WorkItem.module.sass";
+import Image from "next/image";
 
 function WorkItem(props) {
   const router = useRouter();
@@ -19,11 +20,11 @@ function WorkItem(props) {
               {props.shortDescription}
             </p>
           </div>
-          <img
+          <Image
             src={props.image}
             className={classes.img}
             alt={props.title}
-          ></img>
+          ></Image>
         </div>
       </Card>
     </li>

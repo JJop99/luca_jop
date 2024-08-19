@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb";
 import Head from "next/head";
 import { Fragment } from "react";
-import WorkDetail from "../../components/works/WorkDetail";
+import WorkDetail from "../../components/Works/WorkDetail";
 
 function WorkDetails(props) {
   return (

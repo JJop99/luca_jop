@@ -35,7 +35,7 @@ export default function Carousel(props) {
             (
               <SwiperSlide key={image.key}>
                 <div className="object-fill w-full ">
-                  <img layout="fill" key={image.key} src={image.image} />
+                  <Image layout="fill" key={image.key} src={image.image} />
                 </div>
               </SwiperSlide>
             )

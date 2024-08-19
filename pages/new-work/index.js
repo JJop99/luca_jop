@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-import NewWorkForm from "../../components/works/NewWorkForm";
+import NewWorkForm from "../../components/Works/NewWorkForm";
 
 function NewWorkPage() {
   const router = useRouter();

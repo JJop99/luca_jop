@@ -1,9 +1,10 @@
+import Image from "next/image";
 import classes from "./Contacts.module.sass";
 
 const Contacts = () => {
   return (
     <div className={classes["item--positions"]}>
-      <img src="IMG_2922.jpg" className={classes.img} alt="Luca Jop"></img>
+      <Image src="IMG_2922.jpg" className={classes.img} alt="Luca Jop"></Image>
       <div className={classes.caption}>
         <p className={classes.info}>
           Arch. Luca Jop
