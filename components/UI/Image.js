@@ -12,6 +12,7 @@ const BackgroundImage = (props) => {
         layout={props.layout}
         objectFit={props.objectFit}
         quality={props.quality}
+        priority
       />
     </div>
   );
