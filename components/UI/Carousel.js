@@ -39,9 +39,9 @@ export default function Carousel(props) {
                     alt={image.image}
                     key={image.key} 
                     src={"/"+image.image} 
-                    layout="responsive" // Responsive resizing
                     width={800}  // Aspect ratio width
                     height={600}
+                    priority
                   />
                 </div>
               </SwiperSlide>

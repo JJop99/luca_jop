@@ -8,9 +8,9 @@ const Contacts = () => {
         src="/IMG_2922.jpg" 
         className={classes.img} 
         alt="Luca Jop"  
-        layout="responsive" // Responsive resizing
         width={800}  // Aspect ratio width
         height={600} // Aspect ratio height
+        priority
       />
       <div className={classes.caption}>
         <p className={classes.info}>

@@ -36,8 +36,8 @@ function WorkItem(props) {
             alt={props.title}
             width={dimensions.width || 0}
             height={dimensions.height || 0}
-            layout="intrinsic" // or "responsive" depending on your needs
             onLoad={handleImageLoad}
+            priority
           ></Image>
         </div>
       </Card>
