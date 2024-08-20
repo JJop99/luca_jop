@@ -17,7 +17,7 @@ export default function Home() {
       <BackgroundImage
         style="z-index: -1"
         className={classes.landingImage}
-        src="/Home-01.jpg"
+        src="/Home-01-scaled.jpg"
         alt="Image description"
         layout="fill"
         objectFit="cover"

@@ -97,7 +97,7 @@ const MainNavigation = () => {
                             >
                               <div className={classes["popover__div--menu"]}>
                                 {solutions.map((item) => (
-                                  <Link key={item.name} href={item.href}>
+                                  <Link legacyBehavior key={item.name} href={item.href}>
                                     <a className={classes["link__a"]}>
                                       <div>
                                         <p className={classes["link__item"]}>
@@ -186,7 +186,7 @@ const MainNavigation = () => {
 
               <div className={classes["popover__div--menu"]}>
                 {solutions.map((item) => (
-                  <Link key={item.name} href={item.href}>
+                  <Link legacyBehavior key={item.name} href={item.href}>
                     <a className={classes["link__a"]}>
                       <div onClick={() => setIsNavOpen(false)}>
                         <p className={classes["link__item"]}>{item.name}</p>
