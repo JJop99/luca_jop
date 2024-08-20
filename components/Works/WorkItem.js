@@ -1,13 +1,23 @@
 import { useRouter } from "next/router";
+import { useState } from 'react';
 
 import Card from "../UI/Card";
 import classes from "./WorkItem.module.sass";
 import Image from "next/image";
 
+
+
 function WorkItem(props) {
   const router = useRouter();
   const showDetailsHandler = () => {
     router.push("/" + props.id);
+  };
+
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  const handleImageLoad = (event) => {
+    const { width, height } = event.target;
+    setDimensions({ width, height });
   };
 
   return (
@@ -21,9 +31,13 @@ function WorkItem(props) {
             </p>
           </div>
           <Image
-            src={props.image}
+            src={"/"+props.image}
             className={classes.img}
             alt={props.title}
+            width={dimensions.width || 0}
+            height={dimensions.height || 0}
+            layout="intrinsic" // or "responsive" depending on your needs
+            onLoad={handleImageLoad}
           ></Image>
         </div>
       </Card>

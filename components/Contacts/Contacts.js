@@ -4,7 +4,14 @@ import classes from "./Contacts.module.sass";
 const Contacts = () => {
   return (
     <div className={classes["item--positions"]}>
-      <Image src="IMG_2922.jpg" className={classes.img} alt="Luca Jop"></Image>
+      <Image 
+        src="/IMG_2922.jpg" 
+        className={classes.img} 
+        alt="Luca Jop"  
+        layout="responsive" // Responsive resizing
+        width={800}  // Aspect ratio width
+        height={600} // Aspect ratio height
+      />
       <div className={classes.caption}>
         <p className={classes.info}>
           Arch. Luca Jop

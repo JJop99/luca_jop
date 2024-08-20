@@ -35,7 +35,14 @@ export default function Carousel(props) {
             (
               <SwiperSlide key={image.key}>
                 <div className="object-fill w-full ">
-                  <Image layout="fill" key={image.key} src={image.image} />
+                  <Image 
+                    alt={image.image}
+                    key={image.key} 
+                    src={"/"+image.image} 
+                    layout="responsive" // Responsive resizing
+                    width={800}  // Aspect ratio width
+                    height={600}
+                  />
                 </div>
               </SwiperSlide>
             )
