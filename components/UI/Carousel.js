@@ -29,6 +29,7 @@ export default function Carousel(props) {
         }}
         pagination={{
           clickable: true,
+          dynamicBullets: true,
         }}
         navigation={true}
         modules={[EffectFade, Autoplay,Pagination, Navigation]}
