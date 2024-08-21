@@ -1,12 +1,20 @@
 .swiper {
   width: 100%;
-  height: auto;
+  height: 75%;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
+}
+
+/* Stile per le immagini */
+.swiper-slide Image {
+  height: 100%;
+  width: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .swiper-button-next,
