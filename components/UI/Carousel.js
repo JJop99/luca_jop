@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { EffectFade, Autoplay, Navigation } from "swiper";
+import { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
 import Image from "next/image";
 
 
@@ -27,8 +27,11 @@ export default function Carousel(props) {
           delay: 5000,
           disableOnInteraction: false,
         }}
+        pagination={{
+          clickable: true,
+        }}
         navigation={true}
-        modules={[EffectFade, Autoplay, Navigation]}
+        modules={[EffectFade, Autoplay,Pagination, Navigation]}
       >
         {props.images.map(
           (image) => (
