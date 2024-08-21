@@ -11,7 +11,7 @@
 }
 
 .description {
-  @apply md:w-7/12   md:px-12 flex flex-col  leading-normal font-light  text-xl;
+  @apply md:w-7/12   md:px-12 flex flex-col  leading-normal font-light  text-lg;
 }
 
 .item--positions {
