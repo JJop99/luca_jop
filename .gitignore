@@ -5,6 +5,9 @@ node_modules/
 /.pnp
 .pnp.js
 
+# Eccezione: non ignorare la cartella specificata e il suo contenuto
+!node_modules/swiper/
+
 # testing
 /coverage
 
