@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "postinstall": "patch-package",
     "build": "next build && npm run postinstall",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "patch-package"
+    "lint": "next lint"
+    
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
