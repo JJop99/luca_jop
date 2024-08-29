@@ -29,7 +29,7 @@ export async function getStaticProps() {
 
   const worksCollection = db.collection("works");
 
-  const works = await worksCollection.find().toArray();
+  const works = await worksCollection.find().sort({ year: -1 }).toArray();
 
   client.close();
   return {

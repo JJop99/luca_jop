@@ -18,7 +18,12 @@ const WorkDetail = (props) => {
           <Carousel images={props.images}/>
         </div>
         <div className={classes.description}>
-          {props.description}
+          {props.description.split('\n').map((line, index) => (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          ))}
         </div>
       </div>
     </div>
