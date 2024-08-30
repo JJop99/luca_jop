@@ -34,6 +34,7 @@ function WorkItem(props) {
             src={"/"+props.image}
             className={classes.img}
             alt={props.title}
+            layout="responsive"
             width={dimensions.width || 0}
             height={dimensions.height || 0}
             onLoad={handleImageLoad}
