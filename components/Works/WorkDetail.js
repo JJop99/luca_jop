@@ -3,7 +3,7 @@ import Carousel from "../UI/Carousel";
 import classes from "./WorkDetail.module.sass";
 
 const WorkDetail = (props) => {
-  console.log(props);
+  console.log(props.role);
 
   return (
     <div>
@@ -18,6 +18,7 @@ const WorkDetail = (props) => {
           <Carousel images={props.images}/>
         </div>
         <div className={classes.description}>
+          <span className={classes.role}>{props.role}</span>
           {props.description.split('\n').map((line, index) => (
             <span key={index}>
               {line}

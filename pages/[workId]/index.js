@@ -19,6 +19,7 @@ function WorkDetails(props) {
         title={props.workData.title}
         shortDescription={props.workData.shortDescription}
         description={props.workData.description}
+        role={props.workData.role}
       />
     </Fragment>
   );
@@ -66,6 +67,7 @@ export async function getStaticProps(context) {
         images: JSON.parse(JSON.stringify(selectedWork.images)),
         shortDescription: selectedWork.shortDescription,
         description: selectedWork.description,
+        role: selectedWork.role
       },
     },
     revalidate: 1,
