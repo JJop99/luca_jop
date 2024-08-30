@@ -7,6 +7,10 @@
 .swiperSlide 
   height: 600px
 
+@media screen and (max-width: 600px)
+  .swiperSlide 
+    height: 400px
+
 /* Stile per le immagini */
 .swiperImage 
   display: block
@@ -29,10 +33,11 @@
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
-  width: 75%
+  width: 90%
   height: auto
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
   z-index: 1000
+  @apply md:w-3/4
 
 
 .overlay 
