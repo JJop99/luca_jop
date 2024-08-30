@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Card from "../UI/Card";
 import classes from "./WorkItem.module.sass";
@@ -20,6 +20,23 @@ function WorkItem(props) {
     setDimensions({ width, height });
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Cambia il breakpoint come desideri
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Chiamare la funzione al mount per inizializzare lo stato
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
   return (
     <li className={classes.item} onClick={showDetailsHandler}>
       <Card>
@@ -34,7 +51,7 @@ function WorkItem(props) {
             src={"/"+props.image}
             className={classes.img}
             alt={props.title}
-            layout="responsive"
+            layout={isMobile ? 'responsive' : 'intrinsic'} // Usa 'responsive' solo su mobile
             width={dimensions.width || 0}
             height={dimensions.height || 0}
             onLoad={handleImageLoad}
