@@ -1,11 +1,10 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
-    const { title, image, description } = data;
+    const { title, images, description, year, shortDescription } = data;
+
     const client = await MongoClient.connect(
       "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
     );
@@ -20,4 +19,5 @@ async function handler(req, res) {
     res.status(201).json({ message: "Work inserted!" });
   }
 }
+
 export default handler;

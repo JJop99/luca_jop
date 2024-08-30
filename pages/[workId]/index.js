@@ -44,8 +44,21 @@ export async function getStaticPaths() {
   };
 }
 
+function isValidObjectId(id) {
+  return /^[a-fA-F0-9]{24}$/.test(id);
+}
+
 export async function getStaticProps(context) {
   const workId = context.params.workId;
+
+  // Verifica se l'ID è valido
+  if (!isValidObjectId(workId)) {
+    return {
+      notFound: true, // Restituisce una pagina 404 se l'ID non è valido
+    };
+  }
+
+  
   const client = await MongoClient.connect(
     "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
   );
@@ -58,6 +71,12 @@ export async function getStaticProps(context) {
   });
 
   client.close();
+
+  if (!selectedWork) {
+    return {
+      notFound: true, // Questo renderà la pagina 404
+    };
+  }
   console.log(workId);
   return {
     props: {
