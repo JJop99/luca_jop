@@ -15,7 +15,7 @@ const About = () => {
           in particolare energetica, degli edifici esistenti.
         </p>
       </div>
-      <div className="justify-center flex ">
+      <div className="justify-center flex px-4">
         <Timeline />
       </div>
       
