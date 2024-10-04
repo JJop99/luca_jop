@@ -20,7 +20,7 @@ const WorkDetail = (props) => {
         <div className={classes.description}>
           {/* <span className={classes.role}>{props.role}</span> */}
           {props.description.split('\n').map((line, index) => (
-            <span key={index}>
+            <span class="text-justify" key={index}>
               {line}
               <br />
             </span>
