@@ -26,9 +26,16 @@ function WorkDetails(props) {
 }
 
 export async function getStaticPaths() {
-  const client = await MongoClient.connect(
-    "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
-  );
+  let client;
+  try {
+    client = await MongoClient.connect(
+      "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
+    );
+  } catch (error) {
+    console.error("Connection to MongoDB failed", error);
+    return { notFound: true };
+  }
+  
   const db = client.db();
 
   const worksCollection = db.collection("works");
@@ -59,9 +66,15 @@ export async function getStaticProps(context) {
   }
 
   
-  const client = await MongoClient.connect(
-    "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
-  );
+  let client;
+  try {
+    client = await MongoClient.connect(
+      "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
+    );
+  } catch (error) {
+    console.error("Connection to MongoDB failed", error);
+    return { notFound: true };
+  }
   const db = client.db();
 
   const worksCollection = db.collection("works");
