@@ -4,7 +4,7 @@ import classes from "./WorkDetail.module.sass";
 
 const WorkDetail = (props) => {
   console.log(props.role);
-
+  console.log("WorkDetail props:", props);
   return (
     <div>
       <div className={classes.caption}>
