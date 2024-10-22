@@ -13,12 +13,12 @@ const WorkDetail = (props) => {
           {props.shortDescription}
         </p>
       </div>
-      {/* <div className={classes["item--positions"]}>
-        <div className={classes.carousel}>
+      <div className={classes["item--positions"]}>
+        {/* <div className={classes.carousel}>
           <Carousel images={props.images}/>
-        </div>
+        </div> */}
         <div className={classes.description}>
-          {// <span className={classes.role}>{props.role}</span> }
+          {/* <span className={classes.role}>{props.role}</span> */}
           {props.description.split('\n').map((line, index) => (
             <span class="text-justify" key={index}>
               {line}
@@ -26,7 +26,7 @@ const WorkDetail = (props) => {
             </span>
           ))}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
