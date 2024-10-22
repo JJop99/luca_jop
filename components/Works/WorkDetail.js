@@ -1,6 +1,6 @@
 
 import Carousel from "../UI/Carousel";
-import classes from "./WorkDetail.module.sass";
+//import classes from "./WorkDetail.module.sass";
 
 const WorkDetail = (props) => {
   console.log(props.role);
