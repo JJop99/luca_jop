@@ -62,7 +62,7 @@ export default function Carousel(props) {
                     height={0}
                     sizes="100vw"
                     priority
-                    onClick={() => openModal("/" + image.image)}
+                    onClick={() => openModal(image.image)}
                     className={classes.swiperImage}
                   />
                 </div>
@@ -74,7 +74,7 @@ export default function Carousel(props) {
         )}
       </Swiper>
 
-      {/* <ReactModal
+      <ReactModal
         isOpen={isOpen}
         onRequestClose={closeModal}
         className={classes.modal}
@@ -120,7 +120,7 @@ export default function Carousel(props) {
           )
         )}
         </Swiper>
-      </ReactModal> */}
+      </ReactModal>
     </>
   );
 }
