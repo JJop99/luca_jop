@@ -74,7 +74,7 @@ export default function Carousel(props) {
         )}
       </Swiper>
 
-      <ReactModal
+      {/* <ReactModal
         isOpen={isOpen}
         onRequestClose={closeModal}
         className={classes.modal}
@@ -120,7 +120,7 @@ export default function Carousel(props) {
           )
         )}
         </Swiper>
-      </ReactModal>
+      </ReactModal> */}
     </>
   );
 }
