@@ -14,9 +14,9 @@ const WorkDetail = (props) => {
         </p>
       </div>
       <div className={classes["item--positions"]}>
-        {/* <div className={classes.carousel}>
+        <div className={classes.carousel}>
           <Carousel images={props.images}/>
-        </div> */}
+        </div>
         <div className={classes.description}>
           {/* <span className={classes.role}>{props.role}</span> */}
           {props.description.split('\n').map((line, index) => (
