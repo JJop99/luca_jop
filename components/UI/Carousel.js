@@ -54,16 +54,13 @@ console.log(props.images);
             (
               <SwiperSlide key={image.key} >
                 <div className={classes.swiperSlide}>
-                  <Image 
+                <img 
                     alt={image.image}
                     key={image.key} 
-                    src={image.image} 
-                    width={0}
-                    height={0}
-                    sizes="100vw"
+                    src={"/"+image.image} 
                     priority
-                    onClick={() => openModal("/"+image.image)}
-                    className={classes.swiperImage}
+                    onClick={() => openModal("/" + image.image)}
+                    className={classes.modalImage}
                   />
                 </div>
               </SwiperSlide>
