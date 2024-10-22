@@ -32,7 +32,7 @@ export default function Carousel(props) {
   return (
     <>
       <Swiper
-        autoHeight={true}
+        autoHeight={false}
         loop={true}
         spaceBetween={30}
         effect={"fade"}
