@@ -32,7 +32,7 @@ export default function Carousel(props) {
   return (
     <>
       <Swiper
-        autoHeight={true}
+        //autoHeight={true}
         loop={true}
         spaceBetween={30}
         effect={"fade"}
@@ -60,8 +60,8 @@ export default function Carousel(props) {
                     src={"/"+image.image} 
                     width={0}
                     height={0}
-                    sizes="100vw"
-                    priority
+                    //sizes="100vw"
+                    //priority
                     onClick={() => openModal("/" + image.image)}
                     className={classes.swiperImage}
                   />
