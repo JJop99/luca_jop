@@ -19,7 +19,7 @@ export default function Carousel(props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+console.log(props.images);
   const openModal = (image) => {
     setSelectedImage(image);
     setIsOpen(true);
