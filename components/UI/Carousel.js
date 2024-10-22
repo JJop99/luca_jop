@@ -19,7 +19,7 @@ export default function Carousel(props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-console.log(props.images);
+
   const openModal = (image) => {
     setSelectedImage(image);
     setIsOpen(true);
@@ -31,7 +31,7 @@ console.log(props.images);
     
   return (
     <>
-      {/* <Swiper
+      <Swiper
         autoHeight={true}
         loop={true}
         spaceBetween={30}
@@ -57,12 +57,12 @@ console.log(props.images);
                   <Image 
                     alt={image.image}
                     key={image.key} 
-                    src={image.image} 
+                    src={"/"+image.image} 
                     width={0}
                     height={0}
                     sizes="100vw"
                     priority
-                    onClick={() => openModal("/"+image.image)}
+                    onClick={() => openModal("/" + image.image)}
                     className={classes.swiperImage}
                   />
                 </div>
@@ -72,46 +72,7 @@ console.log(props.images);
             )
           )
         )}
-      </Swiper> */}
-      <Swiper
-        autoHeight={true}
-        loop={true}
-        spaceBetween={30}
-        effect={"fade"}
-        centeredSlides={true}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-        }}
-        navigation={true}
-        modules={[EffectFade, Autoplay,Pagination, Navigation]}
-        className={classes.swiper}
-      >
-        {props.images.map(
-          (image) => (
-            (
-              <SwiperSlide key={image.key} >
-                <div className="relative w-full max-h-[90vh] overflow-y-auto" >
-                  <img 
-                    alt={image.image}
-                    key={image.key} 
-                    src={"/"+image.image} 
-                    priority
-                    onClick={() => openModal("/" + image.image)}
-                    className={classes.modalImage}
-                  />
-                </div>
-              </SwiperSlide>
-
-              
-            )
-          )
-        )}
-        </Swiper>
+      </Swiper>
 
       <ReactModal
         isOpen={isOpen}
