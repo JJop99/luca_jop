@@ -57,12 +57,12 @@ console.log(props.images);
                   <Image 
                     alt={image.image}
                     key={image.key} 
-                    src={"/"+image.image} 
+                    src={image.image} 
                     width={0}
                     height={0}
                     sizes="100vw"
                     priority
-                    onClick={() => openModal(image.image)}
+                    onClick={() => openModal("/"+image.image)}
                     className={classes.swiperImage}
                   />
                 </div>
