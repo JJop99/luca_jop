@@ -33,9 +33,9 @@ export default function Carousel(props) {
     <>
       <Swiper
         autoHeight={true}
-        loop={true}
+        loop={false}
         spaceBetween={30}
-        effect={"fade"}
+        effect={undefined}
         centeredSlides={true}
         autoplay={{
           delay: 5000,
