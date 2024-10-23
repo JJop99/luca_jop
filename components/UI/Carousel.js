@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import classes from "./Carousel.module.sass";
 // Import Swiper React components
-//import dynamic from 'next/dynamic';
 import { EffectFade, Autoplay, Navigation, Pagination } from "swiper/modules";
 
-
-// Disabilita SSR per Swiper e SwiperSlide
-// const SwiperComponent = dynamic(() => import('swiper/react').then(mod => ({
-//   Swiper: mod.Swiper,
-//   SwiperSlide: mod.SwiperSlide
-// })), { ssr: false });
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -62,7 +55,7 @@ export default function Carousel(props) {
           (image) => (
             (
               <SwiperSlide key={image.key} >
-                {/* <div className={classes.swiperSlide}>
+                <div className={classes.swiperSlide}>
                   <Image 
                     alt={image.image}
                     key={image.key} 
@@ -74,17 +67,8 @@ export default function Carousel(props) {
                     onClick={() => openModal("/" + image.image)}
                     className={classes.swiperImage}
                   />
-                </div> */}
-                <div className="relative w-full max-h-[90vh] overflow-y-auto" >
-                  <img 
-                    alt={image.image}
-                    key={image.key} 
-                    src={"/"+image.image} 
-                    priority
-                    onClick={() => openModal("/" + image.image)}
-                    className={classes.modalImage}
-                  />
                 </div>
+                
               </SwiperSlide>
 
               
