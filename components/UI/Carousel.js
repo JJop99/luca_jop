@@ -30,6 +30,15 @@ export default function Carousel(props) {
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    // Forza il rendering dopo un breve ritardo
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 0);
+
+    return () => clearTimeout(timer); // Pulizia del timer
+  }, []);
     
   return (
     <>
@@ -37,7 +46,7 @@ export default function Carousel(props) {
         autoHeight={true}
         loop={false}
         spaceBetween={30}
-        effect={undefined}
+        effect={"fade"}
         centeredSlides={true}
         autoplay={{
           delay: 5000,
