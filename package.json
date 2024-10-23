@@ -21,7 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-modal": "^3.16.1",
-    "swiper": "^8.4.4"
+    "swiper": "^11.1.14"
   },
   "devDependencies": {
     "eslint": "8.24.0",
