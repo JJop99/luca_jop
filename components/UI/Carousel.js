@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import classes from "./Carousel.module.sass";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import dynamic from 'next/dynamic';
+
+const SwiperComponent = dynamic(() => import('swiper/react'), { ssr: false });
+
+//import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
