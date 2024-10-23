@@ -3,7 +3,11 @@ import classes from "./Carousel.module.sass";
 // Import Swiper React components
 import dynamic from 'next/dynamic';
 
-const SwiperComponent = dynamic(() => import('swiper/react'), { ssr: false });
+// Disabilita SSR per Swiper e SwiperSlide
+const SwiperComponent = dynamic(() => import('swiper/react').then(mod => ({
+  Swiper: mod.Swiper,
+  SwiperSlide: mod.SwiperSlide
+})), { ssr: false });
 
 //import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -35,7 +39,7 @@ export default function Carousel(props) {
     
   return (
     <>
-      <Swiper
+      <SwiperComponent.Swiper
         autoHeight={true}
         loop={false}
         spaceBetween={30}
@@ -56,7 +60,7 @@ export default function Carousel(props) {
         {props.images.map(
           (image) => (
             (
-              <SwiperSlide key={image.key} >
+              <SwiperComponent.SwiperSlide key={image.key} >
                 {/* <div className={classes.swiperSlide}>
                   <Image 
                     alt={image.image}
@@ -80,13 +84,13 @@ export default function Carousel(props) {
                     className={classes.modalImage}
                   />
                 </div>
-              </SwiperSlide>
+              </SwiperComponent.SwiperSlide>
 
               
             )
           )
         )}
-      </Swiper>
+      </SwiperComponent.Swiper>
 
       <ReactModal
         isOpen={isOpen}
@@ -95,7 +99,7 @@ export default function Carousel(props) {
         overlayClassName={classes.overlay}
         ariaHideApp={false}
       >
-        <Swiper
+        <SwiperComponent.Swiper
         autoHeight={true}
         loop={true}
         spaceBetween={30}
@@ -116,7 +120,7 @@ export default function Carousel(props) {
         {props.images.map(
           (image) => (
             (
-              <SwiperSlide key={image.key} >
+              <SwiperComponent.SwiperSlide key={image.key} >
                 <div className="relative w-full max-h-[90vh] overflow-y-auto" >
                   <img 
                     alt={image.image}
@@ -127,13 +131,13 @@ export default function Carousel(props) {
                     className={classes.modalImage}
                   />
                 </div>
-              </SwiperSlide>
+              </SwiperComponent.SwiperSlide>
 
               
             )
           )
         )}
-        </Swiper>
+        </SwiperComponent.Swiper>
       </ReactModal>
     </>
   );
