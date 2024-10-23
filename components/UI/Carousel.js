@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Carousel.module.sass";
 // Import Swiper React components
 import { EffectFade, Autoplay, Navigation, Pagination } from "swiper/modules";
