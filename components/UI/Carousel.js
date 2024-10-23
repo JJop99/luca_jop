@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./Carousel.module.sass";
 // Import Swiper React components
 import dynamic from 'next/dynamic';
-import { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
+import { EffectFade, Autoplay, Navigation, Pagination } from "swiper/modules";
 
 
 // Disabilita SSR per Swiper e SwiperSlide
