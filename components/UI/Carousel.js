@@ -39,10 +39,18 @@ export default function Carousel(props) {
 
     return () => clearTimeout(timer); // Pulizia del timer
   }, []);
+
+  const [update, setUpdate] = useState(0);
+
+  useEffect(() => {
+    // Forza il rendering al caricamento del componente
+    setUpdate((prev) => prev + 1);
+  }, []);
     
   return (
     <>
       <Swiper
+        key={update}
         autoHeight={true}
         loop={false}
         spaceBetween={30}
