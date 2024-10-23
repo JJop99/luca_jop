@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import classes from "./Carousel.module.sass";
 // Import Swiper React components
 import dynamic from 'next/dynamic';
+import { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
+
 
 // Disabilita SSR per Swiper e SwiperSlide
 const SwiperComponent = dynamic(() => import('swiper/react').then(mod => ({
@@ -18,7 +20,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { EffectFade, Autoplay, Navigation, Pagination } from "swiper";
 import Image from "next/image";
 import ReactModal from "react-modal";
 
