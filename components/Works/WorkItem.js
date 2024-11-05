@@ -48,15 +48,15 @@ function WorkItem(props) {
             </p>
           </div>
           <Image
-            src={"/"+props.image}
+            src={"/" + props.image}
             className={classes.img}
             alt={props.title}
-            layout={isMobile ? 'responsive' : 'intrinsic'} // Usa 'responsive' solo su mobile
-            width={dimensions.width || 0}
+            width={isMobile ? '100%' : dimensions.width || 0}
             height={dimensions.height || 0}
+            sizes={isMobile ? '100vw' : `${dimensions.width}px`}
             onLoad={handleImageLoad}
             priority
-          ></Image>
+          />
         </div>
       </Card>
     </li>

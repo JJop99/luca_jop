@@ -1,10 +1,10 @@
 
 import Carousel from "../UI/Carousel";
 import classes from "./WorkDetail.module.sass";
+import LanguageSelector from "../../components/Language/LanguageSelector"; // Importa il selettore
+
 
 const WorkDetail = (props) => {
-  console.log(props.role);
-  console.log("WorkDetail props:", props);
   return (
     <div>
       <div className={classes.caption}>
@@ -12,6 +12,8 @@ const WorkDetail = (props) => {
         <p className={classes["shortDescription--style"]}>
           {props.shortDescription}
         </p>
+       
+
       </div>
       <div className={classes["item--positions"]}>
         <div className={classes.carousel}>
@@ -20,7 +22,7 @@ const WorkDetail = (props) => {
         <div className={classes.description}>
           {/* <span className={classes.role}>{props.role}</span> */}
           {props.description.split('\n').map((line, index) => (
-            <span class="text-justify" key={index}>
+            <span className={"text-justify"} key={index}>
               {line}
               <br />
             </span>

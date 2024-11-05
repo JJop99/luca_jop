@@ -1,0 +1,23 @@
+// LanguageSelector.module.sass
+
+.languageSelector 
+  display: flex /* Disporre i bottoni in linea */
+  gap: 30px /* Spazio tra i bottoni */
+
+
+.button 
+  border: none /* Rimuovi il bordo */
+  cursor: pointer /* Cursore pointer per interazione */
+  transition: color 0.3s /* Effetto di transizione per il colore */
+
+
+.active 
+  color: black /* Colore del testo attivo */
+
+
+.inactive 
+  color: gray /* Colore del testo inattivo */
+
+.button
+  @apply  -mx-3 mt-3 p-1 text-base  font-light  whitespace-nowrap
+  

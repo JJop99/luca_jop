@@ -2,8 +2,13 @@ import { MongoClient, ObjectId } from "mongodb";
 import Head from "next/head";
 import { Fragment } from "react";
 import WorkDetail from "../../components/Works/WorkDetail";
+import { useLanguage } from '../../context/LanguageContext'; // Importa il LanguageContext
+
 
 function WorkDetails(props) {
+  const { language } = useLanguage(); // Ottieni la lingua dal LanguageContext
+  console.log("lang: "+language);
+
   return (
     <Fragment>
       <Head>
@@ -18,7 +23,7 @@ function WorkDetails(props) {
         images={props.workData.images}
         title={props.workData.title}
         shortDescription={props.workData.shortDescription}
-        description={props.workData.description}
+        description={props.workData.description[language]}
         role={props.workData.role}
       />
     </Fragment>
@@ -58,6 +63,9 @@ function isValidObjectId(id) {
 export async function getStaticProps(context) {
   const workId = context.params.workId;
 
+
+  //console.log("lang: "+JSON.stringify(context, null, 2));
+
   // Verifica se l'ID è valido
   if (!isValidObjectId(workId)) {
     return {
@@ -90,7 +98,8 @@ export async function getStaticProps(context) {
       notFound: true, // Questo renderà la pagina 404
     };
   }
-  console.log(workId);
+  
+
   return {
     props: {
       workData: {
