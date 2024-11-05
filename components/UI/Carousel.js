@@ -80,9 +80,10 @@ export default function Carousel(props) {
                     width={0}
                     height={0}
                     sizes="100vw"
-                    //priority
                     onClick={() => openModal("/" + image.image)}
                     className={classes.swiperImage}
+                    priority={false} // Imposta a `false` per permettere il lazy loading
+                    loading="lazy" // Caricamento ritardato
                   />
                 </div>
                 
@@ -124,13 +125,25 @@ export default function Carousel(props) {
             (
               <SwiperSlide key={image.key} >
                 <div className="relative w-full max-h-[90vh] overflow-y-auto" >
-                  <img 
+                  {/* <img 
                     alt={image.image}
                     key={image.key} 
                     src={"/"+image.image} 
                     priority
                     onClick={() => openModal("/" + image.image)}
                     className={classes.modalImage}
+                  /> */}
+                  <Image 
+                    alt={image.image}
+                    key={image.key} 
+                    src={"/"+image.image} 
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    onClick={() => openModal("/" + image.image)}
+                    className={classes.swiperImage}
+                    priority={false} // Imposta a `false` per permettere il lazy loading
+                    loading="lazy" // Caricamento ritardato
                   />
                 </div>
               </SwiperSlide>

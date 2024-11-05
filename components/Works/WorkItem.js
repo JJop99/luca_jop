@@ -51,11 +51,12 @@ function WorkItem(props) {
             src={"/" + props.image}
             className={classes.img}
             alt={props.title}
-            width={isMobile ? '100%' : dimensions.width || 0}
+            width={ dimensions.width || 600}
             height={dimensions.height || 0}
             sizes={isMobile ? '100vw' : `${dimensions.width}px`}
+            loading="lazy" // Caricamento ritardato
             onLoad={handleImageLoad}
-            priority
+            priority={false} // Imposta a `false` per permettere il lazy loading
           />
         </div>
       </Card>
