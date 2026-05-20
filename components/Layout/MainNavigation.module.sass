@@ -41,13 +41,18 @@
   @apply absolute z-10 -ml-4 mt-3 w-fit max-w-xs transform px-2 sm:px-0
 
 .popover__div--container
-  @apply overflow-hidden rounded-lg
+  @apply overflow-hidden
 
 .popover__div--menu
-  @apply relative grid gap-6 bg-white px-6 py-4 sm:gap-8
+  @apply relative grid gap-4 bg-white px-6 py-4 sm:gap-6
 
 .link__a
-  @apply -m-3 flex items-start rounded-lg p-1 hover:bg-gray-50
+  @apply -m-3 flex items-start p-1
+  text-decoration: none
+  border-bottom: 1px solid transparent
+  transition: border-color 0.15s ease
+  &:hover
+    border-bottom: 1px solid #333
 
 .link__item
   @apply text-base text-2xl font-extralight text-gray-900 whitespace-nowrap

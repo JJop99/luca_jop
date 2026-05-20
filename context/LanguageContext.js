@@ -16,7 +16,5 @@ export const LanguageProvider = ({ children }) => {
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
 
-  console.log("useLanguage context:", context); // Aggiungi questo per vedere cosa viene restituito
-
   return context;
 };

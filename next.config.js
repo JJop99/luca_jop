@@ -7,10 +7,10 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  // i18n: {
-  //   locales: ['it', 'en'],  // Lingue supportate
-  //   defaultLocale: 'en',     // Lingua predefinita
-  // },
+  i18n: {
+    locales: ['it', 'en'],
+    defaultLocale: 'it',
+  },
 
   async headers() {
     return [

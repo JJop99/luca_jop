@@ -4,8 +4,6 @@ import classes from './LanguageSelector.module.sass';
 const LanguageSelector = () => {
   const { language, setLanguage } = useLanguage(); // Ottieni la lingua dal contesto
 
-  console.log("Lingua corrente:", language); // Controlla se il valore cambia
-
   return (
     <div className={classes.languageSelector}>
       <button
