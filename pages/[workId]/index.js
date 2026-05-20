@@ -1,118 +1,61 @@
-import { MongoClient, ObjectId } from "mongodb";
-import Head from "next/head";
-import { Fragment } from "react";
-import WorkDetail from "../../components/Works/WorkDetail";
-import { useLanguage } from '../../context/LanguageContext'; // Importa il LanguageContext
-
+import Head from 'next/head'
+import { Fragment } from 'react'
+import WorkDetail from '../../components/Works/WorkDetail'
+import { useLanguage } from '../../context/LanguageContext'
+import { client } from '../../lib/sanity.client'
+import { WORK_QUERY, WORK_IDS_QUERY } from '../../lib/sanity.queries'
 
 function WorkDetails(props) {
-  const { language } = useLanguage(); // Ottieni la lingua dal LanguageContext
-  console.log("lang: "+language);
+  const { language } = useLanguage()
+  const description = props.workData.description?.[language] || props.workData.description?.it || ''
 
   return (
     <Fragment>
       <Head>
-        <title>{props.workData.title}</title>
-        <meta
-          name="description"
-          content={props.workData.description}
-        />
+        <title>{props.workData.title} — Luca Jop</title>
+        <meta name="description" content={props.workData.shortDescription} />
       </Head>
       <WorkDetail
         id={props.workData.id}
         images={props.workData.images}
         title={props.workData.title}
         shortDescription={props.workData.shortDescription}
-        description={props.workData.description[language]}
+        description={description}
         role={props.workData.role}
       />
     </Fragment>
-  );
+  )
 }
 
 export async function getStaticPaths() {
-  let client;
-  try {
-    client = await MongoClient.connect(
-      "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
-    );
-  } catch (error) {
-    console.error("Connection to MongoDB failed", error);
-    return { notFound: true };
-  }
-  
-  const db = client.db();
-
-  const worksCollection = db.collection("works");
-
-  const works = await worksCollection.find({}, { _id: 1 }).toArray();
-
-  client.close();
+  const ids = await client.withConfig({ useCdn: false }).fetch(WORK_IDS_QUERY)
   return {
     fallback: 'blocking',
-    paths: works.map((work) => ({
-      params: { workId: work._id.toString() },
-    })),
-  };
-}
-
-function isValidObjectId(id) {
-  return /^[a-fA-F0-9]{24}$/.test(id);
+    paths: ids.map((id) => ({ params: { workId: id } })),
+  }
 }
 
 export async function getStaticProps(context) {
-  const workId = context.params.workId;
+  const { workId } = context.params
+  const work = await client.fetch(WORK_QUERY, { id: workId })
 
-
-  //console.log("lang: "+JSON.stringify(context, null, 2));
-
-  // Verifica se l'ID è valido
-  if (!isValidObjectId(workId)) {
-    return {
-      notFound: true, // Restituisce una pagina 404 se l'ID non è valido
-    };
+  if (!work) {
+    return { notFound: true }
   }
-
-  
-  let client;
-  try {
-    client = await MongoClient.connect(
-      "mongodb+srv://JJop99:Jacopo99@cluster0.kajhjck.mongodb.net/works?retryWrites=true&w=majority"
-    );
-  } catch (error) {
-    console.error("Connection to MongoDB failed", error);
-    return { notFound: true };
-  }
-  const db = client.db();
-
-  const worksCollection = db.collection("works");
-
-  const selectedWork = await worksCollection.findOne({
-    _id: ObjectId(workId),
-  });
-
-  client.close();
-
-  if (!selectedWork) {
-    return {
-      notFound: true, // Questo renderà la pagina 404
-    };
-  }
-  
 
   return {
     props: {
       workData: {
-        id: selectedWork._id.toString(),
-        title: selectedWork.title,
-        images: JSON.parse(JSON.stringify(selectedWork.images)),
-        shortDescription: selectedWork.shortDescription,
-        description: selectedWork.description,
-        role: selectedWork.role
+        id: work._id,
+        title: work.title,
+        shortDescription: work.shortDescription,
+        description: work.description || {},
+        role: work.role || '',
+        images: work.images || [],
       },
     },
-    revalidate: 1,
-  };
+    revalidate: 60,
+  }
 }
 
-export default WorkDetails;
+export default WorkDetails

@@ -71,15 +71,15 @@ function WorkItem(props) {
             </p>
           </div>
           <Image
-            src={"/" + props.image}
+            src={props.image}
             className={classes.img}
             alt={props.title}
-            width={ dimensions.width || 600}
+            width={dimensions.width || 600}
             height={dimensions.height || 0}
             sizes={isMobile ? '100vw' : `${dimensions.width}px`}
-            loading="lazy" // Caricamento ritardato
+            loading="lazy"
             onLoad={handleImageLoad}
-            priority={false} // Imposta a `false` per permettere il lazy loading
+            priority={false}
           />
         </div>
       </Card>

@@ -1,8 +1,8 @@
-import Head from "next/head";
-import { MongoClient } from "mongodb";
-import { Fragment } from "react";
-import WorkList from "../../components/Works/WorkList";
-//import image from "/public/work.jpg"
+import Head from 'next/head'
+import { Fragment } from 'react'
+import WorkList from '../../components/Works/WorkList'
+import { client } from '../../lib/sanity.client'
+import { WORKS_QUERY } from '../../lib/sanity.queries'
 
 function Works(props) {
   return (
@@ -15,31 +15,15 @@ function Works(props) {
         <WorkList works={props.works} />
       </div>
     </Fragment>
-  );
+  )
 }
-
-
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect(process.env.MONGODB_URI);
-  const db = client.db();
-
-  const worksCollection = db.collection("works");
-
-  const works = await worksCollection.find().sort({ year: -1 }).toArray();
-
-  client.close();
+  const works = await client.fetch(WORKS_QUERY)
   return {
-    props: {
-      works: works.map((work) => ({
-        title: work.title,
-        images: JSON.parse(JSON.stringify(work.images)),
-        shortDescription:work.shortDescription,
-        id: work._id.toString(),
-      })),
-    },
-    revalidate: 1,
-  };
+    props: { works },
+    revalidate: 60,
+  }
 }
 
-export default Works;
+export default Works
