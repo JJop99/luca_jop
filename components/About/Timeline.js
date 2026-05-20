@@ -25,7 +25,11 @@ const Timeline = () => {
   return (
     <ol className="relative border-l border-gray-200 dark:border-gray-700">
       {selectedTexts.map((item, index) => (
-        <li key={index} className="mb-10 ml-4">
+        <li
+          key={index}
+          className="mb-10 ml-4"
+          style={{ animation: `fadeInUp 0.5s ease both`, animationDelay: `${index * 0.1}s` }}
+        >
           <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
           <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
             {item.year}

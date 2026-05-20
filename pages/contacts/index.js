@@ -4,7 +4,9 @@ import Contacts from "../../components/Contacts/Contacts";
 const ContactsPage = () => {
   return (
     <Fragment>
-      <Contacts />
+      <div className="page-fade-in">
+        <Contacts />
+      </div>
     </Fragment>
   );
 };

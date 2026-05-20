@@ -8,13 +8,12 @@ function Works(props) {
   return (
     <Fragment>
       <Head>
-        <title>React Works</title>
-        <meta
-          name="description"
-          content="Browse a huge list of highly active React works."
-        />
+        <title>Luca Jop — Lavori</title>
+        <meta name="description" content="Progetti di architettura: residenze, edifici pubblici, impianti sportivi e riqualificazione energetica." />
       </Head>
-      <WorkList works={props.works} />
+      <div className="page-fade-in">
+        <WorkList works={props.works} />
+      </div>
     </Fragment>
   );
 }

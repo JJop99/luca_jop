@@ -4,7 +4,9 @@ import About from "../../components/About/About";
 const AboutPage = () => {
   return (
     <Fragment>
-      <About />
+      <div className="page-fade-in">
+        <About />
+      </div>
     </Fragment>
   );
 };

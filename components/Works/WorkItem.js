@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Card from "../UI/Card";
 import classes from "./WorkItem.module.sass";
@@ -12,6 +12,25 @@ function WorkItem(props) {
   const showDetailsHandler = () => {
     router.push("/" + props.id);
   };
+
+  const itemRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = itemRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.08 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -38,7 +57,11 @@ function WorkItem(props) {
 
 
   return (
-    <li className={classes.item} onClick={showDetailsHandler}>
+    <li
+      ref={itemRef}
+      className={`${classes.item} ${isVisible ? classes['item--visible'] : classes['item--hidden']}`}
+      onClick={showDetailsHandler}
+    >
       <Card>
         <div className={classes["item--positions"]}>
           <div className={classes.caption}>

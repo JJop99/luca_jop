@@ -17,3 +17,14 @@ a
 
 :root
   --swiper-theme-color: #ffffff !important
+
+@keyframes fadeInUp
+  from
+    opacity: 0
+    transform: translateY(18px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+.page-fade-in
+  animation: fadeInUp 0.5s ease both
