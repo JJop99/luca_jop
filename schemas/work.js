@@ -46,6 +46,14 @@ export const work = defineType({
       ],
     }),
     defineField({
+      name: 'slug',
+      title: 'URL slug',
+      type: 'slug',
+      description: 'Generato automaticamente dal titolo — determina il link del progetto (es. /villa-rossi)',
+      options: { source: 'title', maxLength: 96 },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'role',
       title: 'Ruolo / Committente',
       type: 'string',

@@ -1,11 +1,26 @@
-.info
-    @apply text-gray-900 font-light sm:text-2xl mb-2
+.item--positions
+    @apply w-full md:flex md:items-start gap-16
+
+.img-wrapper
+    @apply md:w-5/12 flex-none
 
 .img
-    @apply h-auto md:max-w-3xl md:w-8/12   bg-cover  text-center overflow-hidden
+    @apply w-full h-auto block
 
 .caption
-    @apply md:w-4/12 p-4   mb-6
+    @apply md:w-7/12 pt-4 md:pt-0 flex flex-col gap-8
 
-.item--positions
-    @apply w-full  md:flex 
+.name
+    @apply text-gray-900 font-light text-3xl
+
+.section
+    @apply flex flex-col gap-1
+
+.label
+    @apply text-xs tracking-widest text-gray-400 uppercase
+
+.address
+    @apply text-gray-900 font-light text-lg not-italic leading-relaxed
+
+.link
+    @apply text-gray-900 font-light text-lg hover:text-gray-500 transition-colors duration-200

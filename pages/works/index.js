@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import { Fragment } from 'react'
-import WorkList from '../../components/Works/WorkList'
-import { client } from '../../lib/sanity.client'
-import { WORKS_QUERY } from '../../lib/sanity.queries'
+import Head from 'next/head';
+import { Fragment } from 'react';
+import WorkList from '../../components/Works/WorkList';
+import { client } from '../../lib/sanity.client';
+import { WORKS_QUERY } from '../../lib/sanity.queries';
 
 function Works(props) {
   return (
@@ -15,15 +15,15 @@ function Works(props) {
         <WorkList works={props.works} />
       </div>
     </Fragment>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const works = await client.fetch(WORKS_QUERY)
+  const works = await client.fetch(WORKS_QUERY);
   return {
     props: { works },
     revalidate: 60,
-  }
+  };
 }
 
-export default Works
+export default Works;

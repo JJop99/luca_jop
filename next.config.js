@@ -7,10 +7,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  i18n: {
-    locales: ['it', 'en'],
-    defaultLocale: 'it',
-  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sanity.io' },

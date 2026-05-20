@@ -4,14 +4,20 @@
 .shortDescription--style
     @apply text-gray-600 font-light text-xl
 
+.img-wrapper
+    @apply md:w-7/12 flex-none overflow-hidden
+
 .img
-    @apply h-auto md:w-7/12 flex-none bg-cover text-center overflow-hidden
+    @apply w-full h-auto block
 
 .caption
     @apply md:w-5/12 p-4 flex flex-col leading-normal
 
 .item--positions
     @apply w-full md:max-w-full md:flex
+
+.item
+    @apply cursor-pointer
 
 .item--hidden
     opacity: 0
