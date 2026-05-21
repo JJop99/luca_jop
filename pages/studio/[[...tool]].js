@@ -10,3 +10,6 @@ const NextStudio = dynamic(
 export default function StudioPage() {
   return <NextStudio config={config} />
 }
+
+// Bypass the site Layout — Sanity Studio is a full standalone app
+StudioPage.noLayout = true

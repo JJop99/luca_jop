@@ -6,6 +6,11 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 function MyApp({ Component, pageProps }) {
+  // Pages can opt out of the site layout (e.g. /studio)
+  if (Component.noLayout) {
+    return <Component {...pageProps} />
+  }
+
   return (
     <LanguageProvider>
       <Layout>
@@ -22,7 +27,6 @@ function MyApp({ Component, pageProps }) {
         <SpeedInsights/>
       </Layout>
     </LanguageProvider>
-    
   );
 }
 
