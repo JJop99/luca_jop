@@ -9,6 +9,7 @@ function WorkItem(props) {
 
   const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     const el = itemRef.current;
@@ -46,8 +47,9 @@ function WorkItem(props) {
                 alt={props.title}
                 width={900}
                 height={600}
-                style={{ width: '100%', height: 'auto' }}
+                style={{ width: '100%', height: 'auto', opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}
                 loading="lazy"
+                onLoad={() => setImgLoaded(true)}
               />
             </div>
           )}

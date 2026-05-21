@@ -26,6 +26,10 @@ export default function Carousel(props) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [update, setUpdate] = useState(0)
+  const [loadedKeys, setLoadedKeys] = useState(new Set())
+
+  const markLoaded = (key) =>
+    setLoadedKeys((prev) => { const next = new Set(prev); next.add(key); return next })
 
   useEffect(() => {
     const timer = setTimeout(() => window.dispatchEvent(new Event('resize')), 0)
@@ -54,6 +58,8 @@ export default function Carousel(props) {
                 onClick={() => { setSelectedIndex(images.indexOf(img)); setIsOpen(true) }}
                 className={classes.swiperImage}
                 loading="lazy"
+                onLoad={() => markLoaded(img.key)}
+                style={{ opacity: loadedKeys.has(img.key) ? 1 : 0, transition: 'opacity 0.5s ease' }}
               />
             </div>
           </SwiperSlide>
@@ -84,6 +90,8 @@ export default function Carousel(props) {
                   sizes="100vw"
                   className={classes.swiperImage}
                   loading="lazy"
+                  onLoad={() => markLoaded(`modal-${img.key}`)}
+                  style={{ opacity: loadedKeys.has(`modal-${img.key}`) ? 1 : 0, transition: 'opacity 0.5s ease' }}
                 />
               </div>
             </SwiperSlide>
