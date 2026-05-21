@@ -3,8 +3,6 @@ import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemas'
 
-// These document types have exactly one document each.
-// The structure builder shows them as direct-edit items (no list).
 const SINGLETONS = ['home', 'about', 'contacts']
 
 export default defineConfig({
@@ -21,12 +19,10 @@ export default defineConfig({
         S.list()
           .title('Contenuti')
           .items([
-            S.listItem().title('Home').id('home')
-              .child(S.document().schemaType('home').documentId('home')),
-            S.listItem().title('Percorso').id('about')
-              .child(S.document().schemaType('about').documentId('about')),
-            S.listItem().title('Contatti').id('contacts')
-              .child(S.document().schemaType('contacts').documentId('contacts')),
+            // Singletons: show as list, one click to edit
+            S.documentTypeListItem('home').title('Home'),
+            S.documentTypeListItem('about').title('Percorso'),
+            S.documentTypeListItem('contacts').title('Contatti'),
             S.divider(),
             S.documentTypeListItem('work').title('Progetti'),
           ]),
