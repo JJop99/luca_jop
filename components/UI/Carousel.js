@@ -10,14 +10,14 @@ import 'swiper/css/navigation'
 import Image from 'next/image'
 import { urlFor } from '../../lib/sanity.image'
 
+// Main carousel: autoplay + dots only — no arrows (arrows are in the modal lightbox)
 const mainConfig = {
   spaceBetween: 0,
   effect: 'fade',
   centeredSlides: true,
   autoplay: { delay: 5000, disableOnInteraction: true, pauseOnMouseEnter: true },
   pagination: { clickable: true, dynamicBullets: true },
-  navigation: true,
-  modules: [EffectFade, Autoplay, Pagination, Navigation],
+  modules: [EffectFade, Autoplay, Pagination],
   className: classes.swiper,
 }
 
