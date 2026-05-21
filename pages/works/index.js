@@ -21,7 +21,7 @@ function Works(props) {
 export async function getStaticProps() {
   const works = await client.fetch(WORKS_QUERY);
   return {
-    props: { works },
+    props: { works: works || [] },
     revalidate: 60,
   };
 }
