@@ -18,6 +18,21 @@ a
 :root
   --swiper-theme-color: #111827
 
+/* Swiper global overrides */
+.swiper-backface-hidden
+  backface-visibility: visible !important
+
+.swiper-button-next,
+.swiper-button-prev
+  --swiper-navigation-size: 24px
+
+.swiper-pagination-bullet
+  background: currentColor
+  opacity: 0.4
+
+.swiper-pagination-bullet-active
+  opacity: 1
+
 @keyframes fadeInUp
   from
     opacity: 0
