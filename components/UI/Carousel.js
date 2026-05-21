@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import classes from './Carousel.module.sass'
 import { EffectFade, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -7,97 +8,110 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import Image from 'next/image'
-import ReactModal from 'react-modal'
 import { urlFor } from '../../lib/sanity.image'
 
-const swiperConfig = {
-  autoHeight: true,
-  spaceBetween: 30,
+const mainConfig = {
+  spaceBetween: 0,
   effect: 'fade',
   centeredSlides: true,
-  autoplay: { delay: 5000, disableOnInteraction: false },
+  autoplay: { delay: 5000, disableOnInteraction: true, pauseOnMouseEnter: true },
   pagination: { clickable: true, dynamicBullets: true },
   navigation: true,
   modules: [EffectFade, Autoplay, Pagination, Navigation],
   className: classes.swiper,
 }
 
+const modalConfig = {
+  spaceBetween: 0,
+  effect: 'fade',
+  centeredSlides: true,
+  pagination: { clickable: true, dynamicBullets: true },
+  navigation: true,
+  loop: true,
+  modules: [EffectFade, Pagination, Navigation],
+  className: classes.swiperModal,
+}
+
 export default function Carousel(props) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [update, setUpdate] = useState(0)
   const [loadedKeys, setLoadedKeys] = useState(new Set())
 
-  const markLoaded = (key) =>
-    setLoadedKeys((prev) => { const next = new Set(prev); next.add(key); return next })
+  const markLoaded = useCallback((key) =>
+    setLoadedKeys((prev) => { const next = new Set(prev); next.add(key); return next }), [])
 
+  // close modal on Escape
   useEffect(() => {
-    const timer = setTimeout(() => window.dispatchEvent(new Event('resize')), 0)
-    setUpdate((n) => n + 1)
-    return () => clearTimeout(timer)
-  }, [])
+    if (!isOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') setIsOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isOpen])
 
   const images = (props.images || []).map((img) => ({
     key: img._key || img.key,
-    url: urlFor(img).width(1200).url(),
+    url: urlFor(img).width(1600).auto('format').url(),
     alt: img.alt || '',
   }))
 
+  if (!images.length) return null
+
   return (
     <>
-      <Swiper key={update} {...swiperConfig}>
-        {images.map((img) => (
+      {/* ── Main carousel ── */}
+      <Swiper {...mainConfig}>
+        {images.map((img, idx) => (
           <SwiperSlide key={img.key}>
-            <div className={classes.swiperSlide}>
+            <div
+              className={classes.swiperSlide}
+              onClick={() => { setSelectedIndex(idx); setIsOpen(true) }}
+            >
               <Image
+                fill
                 alt={img.alt}
                 src={img.url}
-                width={0}
-                height={0}
-                sizes="100vw"
-                onClick={() => { setSelectedIndex(images.indexOf(img)); setIsOpen(true) }}
-                className={classes.swiperImage}
-                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 onLoad={() => markLoaded(img.key)}
-                style={{ opacity: loadedKeys.has(img.key) ? 1 : 0, transition: 'opacity 0.5s ease' }}
+                style={{
+                  objectFit: 'cover',
+                  opacity: loadedKeys.has(img.key) ? 1 : 0,
+                  transition: 'opacity 0.5s ease',
+                }}
               />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <ReactModal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-        className={classes.modal}
-        overlayClassName={classes.overlay}
-        ariaHideApp={false}
-      >
-        <Swiper
-          key={`modal-${update}`}
-          {...swiperConfig}
-          loop
-          initialSlide={selectedIndex}
-        >
-          {images.map((img) => (
-            <SwiperSlide key={img.key}>
-              <div className="relative w-full max-h-[90vh] overflow-y-auto">
-                <Image
-                  alt={img.alt}
-                  src={img.url}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className={classes.swiperImage}
-                  loading="lazy"
-                  onLoad={() => markLoaded(`modal-${img.key}`)}
-                  style={{ opacity: loadedKeys.has(`modal-${img.key}`) ? 1 : 0, transition: 'opacity 0.5s ease' }}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </ReactModal>
+      {/* ── Lightbox modal — rendered in a portal to escape page-fade-in transform ── */}
+      {isOpen && typeof document !== 'undefined' && createPortal(
+        <div className={classes.overlay} onClick={() => setIsOpen(false)}>
+          <button className={classes.closeBtn} onClick={() => setIsOpen(false)} aria-label="Chiudi">✕</button>
+          <div className={classes.modalInner} onClick={(e) => e.stopPropagation()}>
+            <Swiper {...modalConfig} initialSlide={selectedIndex}>
+              {images.map((img) => (
+                <SwiperSlide key={img.key}>
+                  <div className={classes.modalSlide}>
+                    <Image
+                      fill
+                      alt={img.alt}
+                      src={img.url}
+                      sizes="90vw"
+                      onLoad={() => markLoaded(`modal-${img.key}`)}
+                      style={{
+                        objectFit: 'contain',
+                        opacity: loadedKeys.has(`modal-${img.key}`) ? 1 : 0,
+                        transition: 'opacity 0.4s ease',
+                      }}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>,
+        document.body
+      )}
     </>
   )
 }
