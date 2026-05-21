@@ -20,8 +20,8 @@ function WorkList(props) {
             key={work._id}
             id={work.slug || work._id}
             image={
-              work.images?.[0]
-                ? urlFor(work.images[0]).width(900).height(600).fit('crop').url()
+              work.coverImage
+                ? urlFor(work.coverImage).width(900).height(600).fit('crop').url()
                 : ''
             }
             title={work.title}

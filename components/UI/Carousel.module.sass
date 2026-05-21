@@ -1,13 +1,14 @@
 /* ── Main swiper wrapper ── */
 .swiper
   width: 100%
+  aspect-ratio: 4 / 3
   display: block
 
-/* ── Main slide: aspect-ratio container ── */
+/* ── Main slide: fills wrapper height (fade effect uses position:absolute) ── */
 .swiperSlide
   position: relative
   width: 100%
-  aspect-ratio: 4 / 3
+  height: 100%
   background-color: #f3f4f6
   overflow: hidden
   cursor: pointer
