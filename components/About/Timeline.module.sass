@@ -1,0 +1,77 @@
+/* ── Container ── */
+.timeline
+  position: relative
+  width: 100%
+  max-width: 560px
+  padding-left: 28px
+
+/* ── Animated vertical line ── */
+.line
+  position: absolute
+  left: 3px
+  top: 8px
+  bottom: 8px
+  width: 1px
+  background: #d1d5db
+  transform-origin: top center
+  animation: lineGrow 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both
+
+@keyframes lineGrow
+  from
+    transform: scaleY(0)
+  to
+    transform: scaleY(1)
+
+/* ── Individual item — hidden by default ── */
+.item
+  position: relative
+  padding-bottom: 2.75rem
+  opacity: 0
+  transform: translateY(14px)
+  transition: opacity 0.55s ease, transform 0.55s ease
+
+/* ── Revealed state ── */
+.itemVisible
+  opacity: 1
+  transform: translateY(0)
+
+  .dot
+    transform: scale(1)
+
+/* ── Dot on the line ── */
+.dot
+  position: absolute
+  left: -25px
+  top: 5px
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  background: #6b7280
+  transform: scale(0)
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)
+
+/* ── Year ── */
+.year
+  display: block
+  font-size: 0.7rem
+  letter-spacing: 0.08em
+  color: #9ca3af
+  font-weight: 400
+  margin-bottom: 0.2rem
+  line-height: 1
+
+/* ── Title ── */
+.title
+  font-size: 1rem
+  font-weight: 300
+  color: #111827
+  margin: 0 0 0.3rem 0
+  line-height: 1.4
+
+/* ── Description ── */
+.description
+  font-size: 0.875rem
+  font-weight: 300
+  color: #6b7280
+  margin: 0
+  line-height: 1.65

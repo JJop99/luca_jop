@@ -1,75 +1,69 @@
-import { useState } from 'react';
-import { useLanguage } from '../../context/LanguageContext';
+import { useEffect, useRef, useState } from 'react'
+import { useLanguage } from '../../context/LanguageContext'
+import classes from './Timeline.module.sass'
 
-const Timeline = () => {
-  const { language } = useLanguage();
-  const [openItems, setOpenItems] = useState(new Set());
+const FALLBACK = {
+  it: [
+    { year: 1997, title: { it: 'Laurea in Architettura' }, description: { it: 'Facoltà di Architettura di Firenze' } },
+    { year: 1998, title: { it: 'Prima esperienza' }, description: { it: 'Studio Sbrozzi Ingegneri Associati, Modena' } },
+    { year: 2001, title: { it: 'Beastudio Architetti Associati' }, description: { it: 'Fonda il nuovo studio a Bologna' } },
+    { year: 2005, title: { it: 'Studio TECO+' }, description: { it: 'Nasce dalla fusione tra Beastudio e Studio Teco' } },
+    { year: 2012, title: { it: 'Architetto Luca Jop' }, description: { it: 'Libero professionista' } },
+  ],
+}
 
-  const toggle = (idx) => {
-    setOpenItems((prev) => {
-      const next = new Set(prev);
-      if (next.has(idx)) next.delete(idx);
-      else next.add(idx);
-      return next;
-    });
-  };
+export default function Timeline({ items }) {
+  const { language } = useLanguage()
+  const [visible, setVisible] = useState(new Set())
+  const refs = useRef([])
 
-  const timelineTexts = {
-    it: [
-      { year: '1997', title: 'Laurea in Architettura', description: 'Presso la Facoltà di Architettura di Firenze' },
-      { year: '1998', title: 'Prima esperienza lavorativa', description: 'presso lo studio Sbrozzi Ingegneri Associati di Modena' },
-      { year: '2001', title: 'Beastudio Architetti Associati', description: 'Si sposta a Bologna per fondare il nuovo studio di architettura Beastudio' },
-      { year: '2005', title: 'Studio TECO+', description: 'Dalla fusione tra Beastudio e Studio Teco nasce Studio TECO+ Partners' },
-      { year: '2012', title: 'Architetto Luca Jop', description: 'Lascia lo studio associato per intraprendere la professione come libero professionista' },
-    ],
-    en: [
-      { year: '1997', title: 'Degree in Architecture', description: 'At the Faculty of Architecture in Florence' },
-      { year: '1998', title: 'First work experience', description: 'at Sbrozzi Engineers Associates in Modena' },
-      { year: '2001', title: 'Beastudio Associated Architects', description: 'Moves to Bologna to found the new architecture studio Beastudio' },
-      { year: '2005', title: 'TECO+ Studio', description: 'From the merger between Beastudio and Studio Teco, TECO+ Partners Studio is born' },
-      { year: '2012', title: 'Architect Luca Jop', description: 'Leaves the associated studio to practice as a freelancer' },
-    ],
-  };
+  const data = (items || FALLBACK.it).map((item) => ({
+    year: String(item.year),
+    title: item.title?.[language] || item.title?.it || '',
+    description: item.description?.[language] || item.description?.it || '',
+  }))
 
-  const items = timelineTexts[language] || timelineTexts.it;
+  useEffect(() => {
+    refs.current = refs.current.slice(0, data.length)
+    const observers = refs.current.map((el, idx) => {
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisible((prev) => new Set([...prev, idx]))
+            obs.unobserve(el)
+          }
+        },
+        { threshold: 0.15 }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((o) => o?.disconnect())
+  }, [data.length])
 
   return (
-    <ol className="relative border-l border-gray-200 w-full max-w-lg">
-      {items.map((item, index) => {
-        const isOpen = openItems.has(index);
-        return (
-          <li
-            key={index}
-            className="mb-8 ml-6 cursor-pointer select-none"
-            style={{ animation: 'fadeInUp 0.5s ease both', animationDelay: `${index * 0.1}s` }}
-            onClick={() => toggle(index)}
-          >
-            <div className="absolute w-2.5 h-2.5 bg-gray-300 rounded-full mt-1.5 -left-1.5 border border-white transition-colors duration-200" style={isOpen ? { backgroundColor: '#111' } : {}} />
-            <div className="flex items-baseline justify-between gap-4 pr-2">
-              <div>
-                <time className="text-xs font-normal leading-none text-gray-400 mr-3">
-                  {item.year}
-                </time>
-                <span className="text-base font-light text-gray-900">{item.title}</span>
-              </div>
-              <span className="text-gray-400 text-lg leading-none flex-shrink-0 transition-transform duration-200" style={isOpen ? { transform: 'rotate(45deg)' } : {}}>
-                +
-              </span>
-            </div>
-            <div
-              style={{
-                maxHeight: isOpen ? '200px' : '0',
-                overflow: 'hidden',
-                transition: 'max-height 0.3s ease',
-              }}
-            >
-              <p className="mt-2 text-sm font-normal text-gray-500 pr-6">{item.description}</p>
-            </div>
-          </li>
-        );
-      })}
-    </ol>
-  );
-};
+    <div className={classes.timeline}>
+      {/* Vertical line — grows from top on mount */}
+      <div className={classes.line} />
 
-export default Timeline;
+      {data.map((item, idx) => (
+        <div
+          key={idx}
+          ref={(el) => (refs.current[idx] = el)}
+          className={`${classes.item} ${visible.has(idx) ? classes.itemVisible : ''}`}
+          style={{ transitionDelay: `${idx * 0.08}s` }}
+        >
+          <div className={classes.dot} />
+          <div className={classes.body}>
+            <time className={classes.year}>{item.year}</time>
+            <p className={classes.title}>{item.title}</p>
+            {item.description && (
+              <p className={classes.description}>{item.description}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
