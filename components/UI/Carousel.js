@@ -59,29 +59,32 @@ export default function Carousel(props) {
   return (
     <>
       {/* ── Main carousel ── */}
-      <Swiper {...mainConfig}>
-        {images.map((img, idx) => (
-          <SwiperSlide key={img.key}>
-            <div
-              className={classes.swiperSlide}
-              onClick={() => { setSelectedIndex(idx); setIsOpen(true) }}
-            >
-              <Image
-                fill
-                alt={img.alt}
-                src={img.url}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                onLoad={() => markLoaded(img.key)}
-                style={{
-                  objectFit: 'cover',
-                  opacity: loadedKeys.has(img.key) ? 1 : 0,
-                  transition: 'opacity 0.5s ease',
-                }}
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* aspectBox provides 4:3 height; Swiper is not allowed to touch it */}
+      <div className={classes.aspectBox}>
+        <Swiper {...mainConfig}>
+          {images.map((img, idx) => (
+            <SwiperSlide key={img.key}>
+              <div
+                className={classes.swiperSlide}
+                onClick={() => { setSelectedIndex(idx); setIsOpen(true) }}
+              >
+                <Image
+                  fill
+                  alt={img.alt}
+                  src={img.url}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  onLoad={() => markLoaded(img.key)}
+                  style={{
+                    objectFit: 'cover',
+                    opacity: loadedKeys.has(img.key) ? 1 : 0,
+                    transition: 'opacity 0.5s ease',
+                  }}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
       {/* ── Lightbox modal — rendered in a portal to escape page-fade-in transform ── */}
       {isOpen && typeof document !== 'undefined' && createPortal(
