@@ -31,11 +31,9 @@ export default function Contacts({ data }) {
       <div className={classes['img-wrapper']}>
         <Image
           src={photoUrl}
-          className={classes.img}
           alt={name}
-          width={800}
-          height={1000}
-          style={{ width: '100%', height: 'auto' }}
+          fill
+          style={{ objectFit: 'cover' }}
           priority
         />
       </div>

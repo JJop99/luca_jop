@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { useRef, useState, Fragment } from "react";
-import { createPortal } from "react-dom";
 import classes from "./MainNavigation.module.sass";
 import { Popover, Transition } from "@headlessui/react";
 import LanguageSelector from "../Language/LanguageSelector";
@@ -67,22 +66,11 @@ const MainNavigation = () => {
               <Popover className={classes.popover}>
                 {({ open }) => (
                   <>
-                    {/* Full-page white overlay — fades in when dropdown opens */}
-                    {typeof document !== 'undefined' && createPortal(
-                      <div
-                        aria-hidden="true"
-                        style={{
-                          position: 'fixed',
-                          inset: 0,
-                          background: '#ffffff',
-                          zIndex: 5,
-                          opacity: open ? 1 : 0,
-                          transition: 'opacity 0.4s ease',
-                          pointerEvents: 'none',
-                        }}
-                      />,
-                      document.body
-                    )}
+                    {/* Full-page white overlay — keyframes-driven (transition can silently fail) */}
+                    <div
+                      aria-hidden="true"
+                      className={open ? classes.veilActive : classes.veilIdle}
+                    />
                     <div>
                       <Popover.Button
                         ref={buttonRef}

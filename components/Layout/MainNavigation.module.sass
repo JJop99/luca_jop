@@ -71,3 +71,27 @@
 
 .icon
   @apply w-8 h-8
+
+// === Full-page overlay — keyframes instead of transition (reliability fix) ===
+.veilIdle
+  position: fixed
+  inset: 0
+  background: #fff
+  z-index: 5
+  opacity: 0
+  pointer-events: none
+
+.veilActive
+  position: fixed
+  inset: 0
+  background: #fff
+  z-index: 5
+  opacity: 1
+  pointer-events: none
+  animation: ovFade 0.4s ease both
+
+@keyframes ovFade
+  from
+    opacity: 0
+  to
+    opacity: 1

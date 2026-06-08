@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import Timeline from './Timeline'
 import classes from './About.module.sass'
 import { useLanguage } from '../../context/LanguageContext'
@@ -15,14 +14,14 @@ export default function About({ data }) {
   const bio = data?.bio?.[language] || data?.bio?.it || FALLBACK_BIO[language]
 
   return (
-    <Fragment>
-      <div className={classes.caption}>
-        <div className={classes['title--style']}>{LABELS[language] || LABELS.it}</div>
-        <p className={classes['shortDescription--style']}>{bio}</p>
+    <div className={classes.percorso}>
+      <div className={classes.pcLeft}>
+        <h1 className={classes.pgTitle}>{LABELS[language] || LABELS.it}</h1>
+        <p className={classes.bio}>{bio}</p>
       </div>
-      <div className="flex justify-center px-4">
+      <div className={classes.pcRight}>
         <Timeline items={data?.timeline || null} />
       </div>
-    </Fragment>
+    </div>
   )
 }
