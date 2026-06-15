@@ -28,17 +28,13 @@ export default function Timeline({ items }) {
     setDrawn(false)
     const el = ref.current
     if (!el) return
-    const start = () => setDrawn(true)
-    let obs
-    if (typeof IntersectionObserver !== 'undefined') {
-      obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) { start(); obs.disconnect() } },
-        { threshold: 0.2 }
-      )
-      obs.observe(el)
-    }
-    const t = setTimeout(start, 1400)
-    return () => { if (obs) obs.disconnect(); clearTimeout(t) }
+    if (typeof IntersectionObserver === 'undefined') { setDrawn(true); return }
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setDrawn(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
   }, [language])
 
   return (
