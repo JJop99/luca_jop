@@ -14,7 +14,7 @@ function WorkDetails(props) {
     <Fragment>
       <Seo
         title={props.workData.title}
-        description={props.workData.shortDescription}
+        description={props.workData.metaDescription}
         image={props.workData.ogImage || undefined}
         type="article"
       />
@@ -46,6 +46,13 @@ export async function getStaticProps(context) {
 
   if (!work) return { notFound: true };
 
+  // shortDescription is just place and year ("Bologna, Italy 2019") — too thin
+  // for a search result. Prefer the opening of the real description.
+  const long = (work.description?.it || work.description?.en || '').replace(/\s+/g, ' ').trim()
+  const metaDescription = long
+    ? (long.length > 158 ? `${long.slice(0, 155).replace(/[\s,;:.]+$/, '')}…` : long)
+    : [work.title, work.shortDescription].filter(Boolean).join(' — ')
+
   const cover = work.images?.[0];
   let ogImage = null;
   try {
@@ -64,6 +71,7 @@ export async function getStaticProps(context) {
         role: work.role || '',
         images: work.images || [],
         ogImage,
+        metaDescription,
       },
     },
     revalidate: 60,

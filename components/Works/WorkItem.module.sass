@@ -11,13 +11,19 @@
     @apply w-full h-auto block
 
 .caption
-    @apply md:w-5/12 p-4 flex flex-col leading-normal
+    @apply md:w-5/12 py-4 md:p-4 flex flex-col leading-normal
 
 .item--positions
     @apply w-full md:max-w-full md:flex
 
 .item
     @apply cursor-pointer
+
+.link
+    @apply block
+    &:focus-visible
+        outline: 1px solid #9ca3af
+        outline-offset: 4px
 
 .item--hidden
     opacity: 0

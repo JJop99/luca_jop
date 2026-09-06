@@ -15,10 +15,11 @@ function WorkList(props) {
   return (
     <Fragment>
       <ul className={classes['list__ul--margin']}>
-        {props.works.map((work) => (
+        {props.works.map((work, index) => (
           <WorkItem
             key={work._id}
             id={work.slug || work._id}
+            priority={index === 0}
             image={
               work.coverImage
                 ? urlFor(work.coverImage).width(900).height(600).fit('crop').url()

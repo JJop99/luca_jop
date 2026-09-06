@@ -8,7 +8,7 @@ const WorkDetail = (props) => {
   return (
     <div>
       <div className={classes.caption}>
-        <div className={classes["title--style"]}>{props.title}</div>
+        <h1 className={classes["title--style"]}>{props.title}</h1>
         <p className={classes["shortDescription--style"]}>
           {props.shortDescription}
         </p>
