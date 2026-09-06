@@ -14,7 +14,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <LanguageProvider>
       <Layout>
+        {/* Site-wide defaults. Per-page title/description/OG live in <Seo>. */}
         <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#ffffff" />
           <title>Luca Jop — Architetto</title>
           <meta name="description" content="Studio di architettura di Luca Jop. Residenze, edifici pubblici e riqualificazione energetica." />
           <link rel="icon" href="/favicon_io/favicon.ico" />

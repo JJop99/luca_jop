@@ -1,8 +1,9 @@
-import Head from 'next/head';
 import { Fragment } from 'react';
+import Seo from '../../components/SEO/Seo';
 import WorkDetail from '../../components/Works/WorkDetail';
 import { useLanguage } from '../../context/LanguageContext';
 import { client } from '../../lib/sanity.client';
+import { urlFor } from '../../lib/sanity.image';
 import { WORK_QUERY, WORK_IDS_QUERY } from '../../lib/sanity.queries';
 
 function WorkDetails(props) {
@@ -11,10 +12,12 @@ function WorkDetails(props) {
 
   return (
     <Fragment>
-      <Head>
-        <title>{props.workData.title} — Luca Jop</title>
-        <meta name="description" content={props.workData.shortDescription} />
-      </Head>
+      <Seo
+        title={props.workData.title}
+        description={props.workData.shortDescription}
+        image={props.workData.ogImage || undefined}
+        type="article"
+      />
       <div className="page-fade-in">
         <WorkDetail
           id={props.workData.id}
@@ -43,6 +46,14 @@ export async function getStaticProps(context) {
 
   if (!work) return { notFound: true };
 
+  const cover = work.images?.[0];
+  let ogImage = null;
+  try {
+    ogImage = cover ? urlFor(cover).width(1200).height(630).fit('crop').auto('format').url() : null;
+  } catch (e) {
+    ogImage = null;
+  }
+
   return {
     props: {
       workData: {
@@ -52,6 +63,7 @@ export async function getStaticProps(context) {
         description: work.description || {},
         role: work.role || '',
         images: work.images || [],
+        ogImage,
       },
     },
     revalidate: 60,
