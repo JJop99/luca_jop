@@ -4,6 +4,19 @@ import Contacts from '../../components/Contacts/Contacts'
 import { client } from '../../lib/sanity.client'
 import { CONTACTS_QUERY } from '../../lib/sanity.queries'
 
+// Sanity keeps the city as one string ("40131 Bologna"); schema.org wants the
+// postal code in its own field.
+function postalAddress(address) {
+  const city = (address.city || '').trim()
+  const cap = city.match(/^(\d{5})\s+(.*)$/)
+  return {
+    '@type': 'PostalAddress',
+    streetAddress: address.street,
+    ...(cap ? { postalCode: cap[1], addressLocality: cap[2] } : { addressLocality: city }),
+    addressCountry: address.country === 'Italia' ? 'IT' : address.country,
+  }
+}
+
 export default function ContactsPage({ contactsData }) {
   const c = contactsData || {}
   const jsonLd = {
@@ -14,16 +27,7 @@ export default function ContactsPage({ contactsData }) {
     ...(c.email ? { email: c.email } : {}),
     ...(c.phone ? { telephone: c.phone.replace(/\s/g, '') } : {}),
     ...(c.photoUrl ? { image: c.photoUrl } : {}),
-    ...(c.address
-      ? {
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: c.address.street,
-            addressLocality: c.address.city,
-            addressCountry: c.address.country === 'Italia' ? 'IT' : c.address.country,
-          },
-        }
-      : {}),
+    ...(c.address ? { address: postalAddress(c.address) } : {}),
   }
 
   return (

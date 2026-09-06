@@ -51,6 +51,7 @@ export default function Seo({
 
       {jsonLd && (
         <script
+          key="jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
