@@ -27,7 +27,7 @@ export default function Seo({
   const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
   const fullTitle = title ? `${title} — Luca Jop` : DEFAULT_TITLE
 
-  return (
+  const head = (
     <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
@@ -49,13 +49,21 @@ export default function Seo({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {jsonLd && (
-        <script
-          key="jsonld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
     </Head>
+  )
+
+  if (!jsonLd) return head
+
+  // The JSON-LD block lives outside <Head>: next/head re-emits script tags on
+  // hydration, so inside the head it ended up in the DOM twice. Structured data
+  // is equally valid in the body.
+  return (
+    <>
+      {head}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </>
   )
 }
